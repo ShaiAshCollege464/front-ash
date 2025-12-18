@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import axios from "axios";
+import CustomButton from "./CustomButton.jsx";
+import CustomInput from "./CustomInput.jsx";
 
 function App() {
     const [users, setUsers] = useState([])
@@ -44,16 +46,29 @@ function App() {
             }
 
             <div>
-                <div>
-                    <input placeholder={"Enter first name"} value={firstName} onChange={(event) => {
+                <div style={{
+                    border: "1px solid grey",
+                    padding: 30,
+                    margin: 40,
+                    backgroundColor: "#FCFBF4",
+                    borderRadius: 10
+                }}>
+                    <CustomInput
+                        placeholder={"Enter first name"}
+                        value={firstName} onChange={(event) => {
                         setFirstName(event.target.value)
-                    }}/>
-                    <input placeholder={"Enter last name"} value={lastName} onChange={(event) => {
+                    }}
+                    />
+                    <CustomInput
+                        placeholder={"Enter last name"}
+                        value={lastName} onChange={(event) => {
                         setLastName(event.target.value)
-                    }}/>
-                    <button
+                    }}
+                    />
+                    <CustomButton
+                        text={"Add"}
                         disabled={firstName.length == 0 || lastName.length == 0 || buttonDisabled}
-                        onClick={() => {
+                        action={() => {
                             setButtonDisabled(true);
                             axios.get("http://localhost:8989/create-user?first=" + firstName + "" +
                                 "&last=" + lastName + "&phone=1234567")
@@ -68,9 +83,8 @@ function App() {
                                     }
 
                                 })
-                        }}>
-                        Add
-                    </button>
+                        }}
+                    />
                 </div>
                 {
                     users.map(item => {
