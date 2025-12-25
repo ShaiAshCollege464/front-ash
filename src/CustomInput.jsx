@@ -12,6 +12,7 @@ function CustomInput (props) {
                         placeholder={props.placeholder}
                         value={props.value}
                         onChange={props.onChange}
+                        type={props.type ? props.type : "text"}
                     />
 
         </span>
