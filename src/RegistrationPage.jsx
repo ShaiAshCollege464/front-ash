@@ -5,8 +5,8 @@ import {useEffect, useState} from "react";
 
 function RegistrationPage () {
     const [users, setUsers] = useState([])
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [errorCode, setErrorCode] = useState(null);
 
@@ -52,30 +52,30 @@ function RegistrationPage () {
                     borderRadius: 10
                 }}>
                     <CustomInput
-                        placeholder={"Enter first name"}
-                        value={firstName} onChange={(event) => {
-                        setFirstName(event.target.value)
+                        placeholder={"Enter Username"}
+                        value={username} onChange={(event) => {
+                        setUsername(event.target.value)
                     }}
                     />
                     <CustomInput
-                        placeholder={"Enter last name"}
-                        value={lastName} onChange={(event) => {
-                        setLastName(event.target.value)
+                        placeholder={"Enter Password"}
+                        value={password} onChange={(event) => {
+                        setPassword(event.target.value)
                     }}
                     />
                     <CustomButton
                         text={"Add"}
-                        disabled={firstName.length == 0 || lastName.length == 0 || buttonDisabled}
+                        disabled={username.length == 0 || password.length == 0 || buttonDisabled}
                         action={() => {
                             setButtonDisabled(true);
-                            axios.get("http://localhost:8989/create-user?first=" + firstName + "" +
-                                "&last=" + lastName + "&phone=1234567")
+                            axios.get("http://localhost:8989/create-user?username=" + username + "" +
+                                "&password=" + password + "&phone=1234567")
                                 .then((response) => {
                                     setButtonDisabled(false)
                                     if (response.data.success) {
                                         getAllUsers();
-                                        setFirstName("");
-                                        setLastName("")
+                                        setUsername("");
+                                        setPassword("")
                                     } else {
                                         setErrorCode(response.data.errorCode);
                                     }
@@ -84,15 +84,6 @@ function RegistrationPage () {
                         }}
                     />
                 </div>
-                {
-                    users.map(item => {
-                        return (
-                            <div>
-                                {item.firstName}
-                            </div>
-                        )
-                    })
-                }
 
             </div>
         </>
